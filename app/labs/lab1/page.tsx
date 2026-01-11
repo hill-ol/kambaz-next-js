@@ -224,6 +224,12 @@ export default function Lab1() {
                     defaultValue="2000-01-21"
                     id="wd-text-fields-dob"/><br/>
             </form>
+            <h4>Anchor tag</h4>
+            Please
+            <a href="https://www.lipsum.com" id="wd-lipsum">click here</a>
+            to get dummy text<br/>
+            <a href="https://github.com/hill-ol/kambaz-next-js" id="wd-github">click here</a>
+            to go to the GitHub repository for this project.
         </div>
     </div>
   );

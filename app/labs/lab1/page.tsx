@@ -72,7 +72,7 @@ export default function Lab1() {
         Your favorite books (in no particular order)
         <ul id="wd-your-books">
             <li>Everything I Know About Love</li>
-            <li>Eve's Hollywood</li>
+            <li>Eve Hollywood</li>
             <li>Writers and Lovers</li>
             <li>Anxious People</li>
             <li>Daisy Jones and the Six</li>

@@ -1,5 +1,4 @@
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -41,16 +40,16 @@ export default function BootstrapForms() {
 
       <div id="wd-css-styling-addons">
         <h3>Addons</h3>
-        <InputGroup className="mb-3">
-          <InputGroup.Text>$</InputGroup.Text>
-          <InputGroup.Text>0.00</InputGroup.Text>
+        <div className="input-group mb-3">
+          <span className="input-group-text">$</span>
+          <span className="input-group-text">0.00</span>
           <Form.Control />
-        </InputGroup>
-        <InputGroup>
+        </div>
+        <div className="input-group">
           <Form.Control />
-          <InputGroup.Text>$</InputGroup.Text>
-          <InputGroup.Text>0.00</InputGroup.Text>
-        </InputGroup>
+          <span className="input-group-text">$</span>
+          <span className="input-group-text">0.00</span>
+        </div>
       </div>
 
       <div id="wd-css-responsive-forms-1">

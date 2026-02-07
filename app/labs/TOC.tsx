@@ -1,25 +1,52 @@
+'use client';
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 export default function TOC() {
- return (
-   <ul>
-     <li>
-       <Link href="/labs" id="wd-lab1-link">
-         Home </Link>
-     </li>
-     <li>
-       <Link href="/labs/lab1" id="wd-lab1-link">
-         Lab 1 </Link>
-     </li>
-     <li>
-       <Link href="/labs/lab2" id="wd-lab2-link">
-         Lab 2 </Link>
-     </li>
-     <li>
-       <Link href="/labs/lab3" id="wd-lab3-link">
-         Lab 3 </Link>
-     </li>
-     <li>
-       <Link href="/" id="wd-lab3-link">
-         Kambaz </Link> </li>
-   </ul>
-);}
+  const pathname = usePathname();
+  
+  return (
+    <ul className="nav nav-pills">
+      <li className="nav-item">
+        <Link 
+          href="/labs" 
+          className={`nav-link ${pathname === '/labs' ? 'active' : ''}`}>
+          Labs
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link 
+          href="/labs/lab1" 
+          className={`nav-link ${pathname === '/labs/lab1' ? 'active' : ''}`}>
+          Lab 1
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link 
+          href="/labs/lab2" 
+          className={`nav-link ${pathname.startsWith('/labs/lab2') ? 'active' : ''}`}>
+          Lab 2
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link 
+          href="/labs/lab3" 
+          className={`nav-link ${pathname === '/labs/lab3' ? 'active' : ''}`}>
+          Lab 3
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link 
+          href="/" 
+          className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
+          Kambaz
+        </Link>
+      </li>
+      <li className="nav-item">
+        <a href="https://github.com/hill-ol" className="nav-link" target="_blank" rel="noopener noreferrer">
+          My GitHub
+        </a>
+      </li>
+    </ul>
+  );
+}

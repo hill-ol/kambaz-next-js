@@ -5,21 +5,18 @@ export default function Signup() {
     <div id="wd-signup-screen" className="p-3" style={{ maxWidth: "400px" }}>
       <h1>Sign up</h1>
       <input 
-        className="form-control mb-2" 
-        placeholder="username" 
-        className="wd-username" 
+        className="form-control mb-2 wd-username"
+        placeholder="username"
       />
       <input 
-        className="form-control mb-2" 
+        className="form-control mb-2 wd-password"
         placeholder="password" 
-        type="password" 
-        className="wd-password" 
+        type="password"
       />
       <input 
-        className="form-control mb-2" 
+        className="form-control mb-2 wd-password-verify"
         placeholder="verify password"
-        type="password" 
-        className="wd-password-verify" 
+        type="password"
       />
       <Link 
         href="/account/profile" 

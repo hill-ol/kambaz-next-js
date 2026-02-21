@@ -20,6 +20,12 @@ import FilterFunction from "./FilterFunction";
 import JsonStringify from "./JsonStringify";
 import House from "./House";
 import Spreader from "./Spreader";
+import Destructing from "./Destructing";
+import FunctionDestructing from "./FunctionDestructing";
+import DestructingImports from "./DestructingImports";
+import Styles from "./Styles";
+import ClientComponentDemo from "./ClientComponentDemo";
+import ServerComponentDemo from "./ServerComponentDemo";
 
 export default function Lab3() {
   return (
@@ -47,6 +53,12 @@ export default function Lab3() {
       <JsonStringify/>
       <House/>
       <Spreader/>
+      <Destructing/>
+      <FunctionDestructing/>
+      <DestructingImports/>
+      <Styles/>
+      <ClientComponentDemo/>
+      <ServerComponentDemo/>
     </div>
   );
 }

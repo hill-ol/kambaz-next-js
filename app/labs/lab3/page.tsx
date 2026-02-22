@@ -30,6 +30,8 @@ import Add from "./Add";
 import Square from "./Square";
 import Highlight from "./Highlight";
 import PathParameters from "./PathParameters";
+import TodoList from "./todos/TodoList";
+import { BiAddToQueue } from "react-icons/bi";
 
 export default function Lab3() {
   return (
@@ -73,6 +75,7 @@ export default function Lab3() {
         voluptates.
       </Highlight>
       <PathParameters/>
+      <TodoList/>
     </div>
   );
 }

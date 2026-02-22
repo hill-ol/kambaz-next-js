@@ -1,0 +1,32 @@
+[
+  { "_id": "123", "title": "A1 - ENV + HTML", "course": "1234", "description": "Submit a link to the landing page of your Web application running on Netlify. The landing page should include the following: Your full name and section Links to each of the lab assignments Link to the Kanbas application Links to all relevant source code repositories The Kanbas application should include a link to navigate back to the landing page.", "points": 100, "availableFrom": "2024-05-06", "availableUntil": "2024-05-20", "dueDate": "2024-05-13" },
+  { "_id": "124", "title": "A2 - CSS + BOOTSTRAP", "course": "1234", "description": "Style your landing page and Kambaz application using CSS and Bootstrap.", "points": 100, "availableFrom": "2024-05-13", "availableUntil": "2024-05-27", "dueDate": "2024-05-20" },
+  { "_id": "125", "title": "A3 - JAVASCRIPT + REACT", "course": "1234", "description": "Implement JavaScript exercises and React components for the Kambaz application.", "points": 100, "availableFrom": "2024-05-20", "availableUntil": "2024-06-03", "dueDate": "2024-05-27" },
+  { "_id": "126", "title": "A4 - STATE + REDUX", "course": "1234", "description": "Add state management to the Kambaz application using React state and Redux.", "points": 100, "availableFrom": "2024-05-27", "availableUntil": "2024-06-10", "dueDate": "2024-06-03" },
+  { "_id": "127", "title": "A5 - NODE + SESSION", "course": "1234", "description": "Implement a Node.js server with session management for the Kambaz application.", "points": 100, "availableFrom": "2024-06-03", "availableUntil": "2024-06-17", "dueDate": "2024-06-10" },
+  { "_id": "128", "title": "A6 - MONGO + MONGOOSE", "course": "1234", "description": "Integrate MongoDB with Mongoose for data persistence in the Kambaz application.", "points": 100, "availableFrom": "2024-06-10", "availableUntil": "2024-06-24", "dueDate": "2024-06-17" },
+
+  { "_id": "201", "title": "A1 - Resume Draft", "course": "1210", "description": "Submit your first resume draft for review.", "points": 50, "availableFrom": "2024-05-06", "availableUntil": "2024-05-20", "dueDate": "2024-05-13" },
+  { "_id": "202", "title": "A2 - Cover Letter", "course": "1210", "description": "Write a cover letter for a co-op position.", "points": 50, "availableFrom": "2024-05-13", "availableUntil": "2024-05-27", "dueDate": "2024-05-20" },
+  { "_id": "203", "title": "A3 - Mock Interview", "course": "1210", "description": "Complete a mock interview session.", "points": 100, "availableFrom": "2024-05-20", "availableUntil": "2024-06-03", "dueDate": "2024-05-27" },
+
+  { "_id": "301", "title": "A1 - Linear Regression", "course": "4400", "description": "Implement linear regression from scratch in Python.", "points": 100, "availableFrom": "2024-05-06", "availableUntil": "2024-05-20", "dueDate": "2024-05-13" },
+  { "_id": "302", "title": "A2 - Classification", "course": "4400", "description": "Build a classifier using logistic regression and decision trees.", "points": 100, "availableFrom": "2024-05-13", "availableUntil": "2024-05-27", "dueDate": "2024-05-20" },
+  { "_id": "303", "title": "A3 - Neural Networks", "course": "4400", "description": "Implement a neural network for image classification.", "points": 150, "availableFrom": "2024-05-20", "availableUntil": "2024-06-03", "dueDate": "2024-05-27" },
+
+  { "_id": "401", "title": "A1 - Group Proofs", "course": "3175", "description": "Prove basic group theory properties.", "points": 100, "availableFrom": "2024-05-06", "availableUntil": "2024-05-20", "dueDate": "2024-05-13" },
+  { "_id": "402", "title": "A2 - Subgroups and Cosets", "course": "3175", "description": "Problems on subgroups, cosets, and Lagrange's theorem.", "points": 100, "availableFrom": "2024-05-13", "availableUntil": "2024-05-27", "dueDate": "2024-05-20" },
+  { "_id": "403", "title": "A3 - Permutation Groups", "course": "3175", "description": "Work with symmetric groups and cycle decompositions.", "points": 100, "availableFrom": "2024-05-20", "availableUntil": "2024-06-03", "dueDate": "2024-05-27" },
+
+  { "_id": "501", "title": "A1 - IS Case Study", "course": "2301", "description": "Analyze an information system case study.", "points": 75, "availableFrom": "2024-05-06", "availableUntil": "2024-05-20", "dueDate": "2024-05-13" },
+  { "_id": "502", "title": "A2 - Database Design", "course": "2301", "description": "Design a relational database schema.", "points": 100, "availableFrom": "2024-05-13", "availableUntil": "2024-05-27", "dueDate": "2024-05-20" },
+  { "_id": "503", "title": "A3 - SQL Queries", "course": "2301", "description": "Write SQL queries for data retrieval.", "points": 100, "availableFrom": "2024-05-20", "availableUntil": "2024-06-03", "dueDate": "2024-05-27" },
+
+  { "_id": "601", "title": "A1 - Research Proposal", "course": "2345", "description": "Submit a marketing research proposal.", "points": 100, "availableFrom": "2024-05-06", "availableUntil": "2024-05-20", "dueDate": "2024-05-13" },
+  { "_id": "602", "title": "A2 - Survey Design", "course": "2345", "description": "Design a survey instrument.", "points": 100, "availableFrom": "2024-05-13", "availableUntil": "2024-05-27", "dueDate": "2024-05-20" },
+  { "_id": "603", "title": "A3 - Final Report", "course": "2345", "description": "Submit your final research report.", "points": 150, "availableFrom": "2024-05-20", "availableUntil": "2024-06-03", "dueDate": "2024-05-27" },
+
+  { "_id": "701", "title": "A1 - Financial Analysis", "course": "3456", "description": "Analyze financial statements of a public company.", "points": 100, "availableFrom": "2024-05-06", "availableUntil": "2024-05-20", "dueDate": "2024-05-13" },
+  { "_id": "702", "title": "A2 - Capital Budgeting", "course": "3456", "description": "Evaluate a capital budgeting project using NPV and IRR.", "points": 100, "availableFrom": "2024-05-13", "availableUntil": "2024-05-27", "dueDate": "2024-05-20" },
+  { "_id": "703", "title": "A3 - Portfolio Analysis", "course": "3456", "description": "Build and analyze an investment portfolio.", "points": 150, "availableFrom": "2024-05-20", "availableUntil": "2024-06-03", "dueDate": "2024-05-27" }
+]

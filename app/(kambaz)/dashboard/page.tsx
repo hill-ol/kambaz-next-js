@@ -5,9 +5,12 @@ import { addNewCourse, deleteCourse, updateCourse } from "../courses/reducer";
 import { RootState } from "../store";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
+import * as db from "../database";
 
 export default function Dashboard() {
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const { enrollments } = db;
   const dispatch = useDispatch();
   const [course, setCourse] = useState<any>({
     _id: "0",
@@ -49,7 +52,14 @@ export default function Dashboard() {
 
       <div id="wd-dashboard-courses">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {courses.map((c: any) => (
+          {courses
+            .filter((c: any) =>
+              enrollments.some(
+                (e: any) =>
+                  e.user === currentUser?._id && e.course === c._id
+              )
+            )
+            .map((c: any) => (
             <div key={c._id} className="col" style={{ width: "300px" }}>
               <div className="card">
                 <Link href={`/courses/${c._id}/home`} className="text-decoration-none text-dark">

@@ -1,28 +1,80 @@
+"use client";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewCourse, deleteCourse, updateCourse } from "../courses/reducer";
+import { RootState } from "../store";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
-import * as db from "../database";
 
 export default function Dashboard() {
-  const courses = db.courses;
+  const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  const dispatch = useDispatch();
+  const [course, setCourse] = useState<any>({
+    _id: "0",
+    name: "New Course",
+    number: "New Number",
+    startDate: "2023-09-10",
+    endDate: "2023-12-15",
+    image: "/images/reactjs.jpg",
+    description: "New Description",
+  });
+
   return (
     <div id="wd-dashboard">
-      <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
-      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
+      <h1 id="wd-dashboard-title">Dashboard</h1>
+      <hr />
+
+      <h5>
+        New Course
+        <Button variant="primary" className="float-end ms-2"
+                id="wd-add-new-course-click"
+                onClick={() => dispatch(addNewCourse(course))}>Add</Button>
+        <Button variant="warning" className="float-end"
+                id="wd-update-course-click"
+                onClick={() => dispatch(updateCourse(course))}>Update</Button>
+      </h5>
+      <br />
+      <input className="form-control mb-2"
+             value={course.name}
+             onChange={(e) => setCourse({ ...course, name: e.target.value })}
+             placeholder="Course Name" />
+      <textarea className="form-control mb-2" rows={3}
+                value={course.description}
+                onChange={(e) => setCourse({ ...course, description: e.target.value })}
+                placeholder="Course Description" />
+      <hr />
+
+      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
+      <hr />
+
       <div id="wd-dashboard-courses">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {courses.map((course) => (
-            <div key={course._id} className="col" style={{ width: "300px" }}>
+          {courses.map((c: any) => (
+            <div key={c._id} className="col" style={{ width: "300px" }}>
               <div className="card">
-                <Link href={`/courses/${course._id}/home`} className="text-decoration-none text-dark">
-                  <img src={course.image} className="card-img-top" width="100%" height={160} alt={course.name} />
+                <Link href={`/courses/${c._id}/home`} className="text-decoration-none text-dark">
+                  <img src={c.image} className="card-img-top"
+                       width="100%" height={160} alt={c.name} />
                   <div className="card-body">
-                    <h5 className="card-title text-nowrap overflow-hidden">{course.name}</h5>
+                    <h5 className="card-title text-nowrap overflow-hidden">{c.name}</h5>
                     <p className="card-text overflow-hidden" style={{ height: "100px" }}>
-                      {course.description}
+                      {c.description}
                     </p>
-                    <Button variant="primary">Go</Button>
                   </div>
                 </Link>
+                <div className="card-body pt-0 d-flex gap-2">
+                  <Button variant="primary">Go</Button>
+                  <Button variant="warning" className="ms-auto"
+                          id="wd-edit-course-click"
+                          onClick={(e) => { e.preventDefault(); setCourse(c); }}>
+                    Edit
+                  </Button>
+                  <Button variant="danger"
+                          id="wd-delete-course-click"
+                          onClick={(e) => { e.preventDefault(); dispatch(deleteCourse(c._id)); }}>
+                    Delete
+                  </Button>
+                </div>
               </div>
             </div>
           ))}

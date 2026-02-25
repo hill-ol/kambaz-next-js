@@ -2,16 +2,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, deleteCourse, updateCourse } from "../courses/reducer";
+import { enroll, unenroll } from "../enrollments/reducer";
 import { RootState } from "../store";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
-import * as db from "../database";
 
 export default function Dashboard() {
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-  const { enrollments } = db;
+  const { enrollments } = useSelector((state: RootState) => state.enrollmentsReducer);
   const dispatch = useDispatch();
+  const [showAllCourses, setShowAllCourses] = useState(false);
   const [course, setCourse] = useState<any>({
     _id: "0",
     name: "New Course",
@@ -22,9 +23,33 @@ export default function Dashboard() {
     description: "New Description",
   });
 
+  const isEnrolled = (courseId: string) =>
+    enrollments.some(
+      (e: any) => e.user === currentUser?._id && e.course === courseId
+    );
+
+  const handleEnrollToggle = (e: any, courseId: string) => {
+    e.preventDefault();
+    if (isEnrolled(courseId)) {
+      dispatch(unenroll({ userId: currentUser._id, courseId }));
+    } else {
+      dispatch(enroll({ userId: currentUser._id, courseId }));
+    }
+  };
+
+  const displayedCourses = showAllCourses
+    ? courses
+    : courses.filter((c: any) => isEnrolled(c._id));
+
   return (
     <div id="wd-dashboard">
-      <h1 id="wd-dashboard-title">Dashboard</h1>
+      <h1 id="wd-dashboard-title">Dashboard
+        <Button variant="primary" className="float-end"
+                id="wd-enrollments-btn"
+                onClick={() => setShowAllCourses(!showAllCourses)}>
+          Enrollments
+        </Button>
+      </h1>
       <hr />
 
       <h5>
@@ -47,22 +72,19 @@ export default function Dashboard() {
                 placeholder="Course Description" />
       <hr />
 
-      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
+      <h2 id="wd-dashboard-published">
+        Published Courses ({displayedCourses.length})
+      </h2>
       <hr />
 
       <div id="wd-dashboard-courses">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {courses
-            .filter((c: any) =>
-              enrollments.some(
-                (e: any) =>
-                  e.user === currentUser?._id && e.course === c._id
-              )
-            )
-            .map((c: any) => (
+          {displayedCourses.map((c: any) => (
             <div key={c._id} className="col" style={{ width: "300px" }}>
               <div className="card">
-                <Link href={`/courses/${c._id}/home`} className="text-decoration-none text-dark">
+                <Link href={isEnrolled(c._id) ? `/courses/${c._id}/home` : "#"}
+                      className="text-decoration-none text-dark"
+                      onClick={(e) => { if (!isEnrolled(c._id)) e.preventDefault(); }}>
                   <img src={c.image} className="card-img-top"
                        width="100%" height={160} alt={c.name} />
                   <div className="card-body">
@@ -72,8 +94,18 @@ export default function Dashboard() {
                     </p>
                   </div>
                 </Link>
-                <div className="card-body pt-0 d-flex gap-2">
-                  <Button variant="primary">Go</Button>
+                <div className="card-body pt-0 d-flex gap-2 flex-wrap">
+                  {isEnrolled(c._id) && (
+                    <Button variant="primary" as={Link as any}
+                            href={`/courses/${c._id}/home`}>Go</Button>
+                  )}
+                  {showAllCourses && (
+                    <Button variant={isEnrolled(c._id) ? "danger" : "success"}
+                            id="wd-enroll-btn"
+                            onClick={(e) => handleEnrollToggle(e, c._id)}>
+                      {isEnrolled(c._id) ? "Unenroll" : "Enroll"}
+                    </Button>
+                  )}
                   <Button variant="warning" className="ms-auto"
                           id="wd-edit-course-click"
                           onClick={(e) => { e.preventDefault(); setCourse(c); }}>

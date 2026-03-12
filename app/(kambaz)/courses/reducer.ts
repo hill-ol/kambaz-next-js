@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { courses } from "../../database";
+import { courses } from "../database";
 import { v4 as uuidv4 } from "uuid";
 
 const initialState = {

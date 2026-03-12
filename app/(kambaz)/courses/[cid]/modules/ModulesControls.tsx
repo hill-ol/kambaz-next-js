@@ -12,6 +12,7 @@ export default function ModulesControls({
   addModule: () => void;
 }) {
   const [show, setShow] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -24,35 +25,41 @@ export default function ModulesControls({
         Module
       </button>
 
-      <div className="dropdown d-inline me-1 float-end">
+      <div className="d-inline me-1 float-end position-relative">
         <button className="btn btn-lg btn-secondary dropdown-toggle"
-                type="button" id="wd-publish-all-btn"
-                data-bs-toggle="dropdown">
+                id="wd-publish-all-btn"
+                onClick={() => setShowDropdown(!showDropdown)}>
           <GreenCheckmark />
           Publish All
         </button>
-        <ul className="dropdown-menu">
-          <li>
-            <a className="dropdown-item" href="#" id="wd-publish-all">
-              <GreenCheckmark /> Publish all modules and items
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#" id="wd-publish-modules-only">
-              <GreenCheckmark /> Publish modules only
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#" id="wd-unpublish-all-modules-and-items">
-              Unpublish all modules and items
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#" id="wd-unpublish-modules-only">
-              Unpublish modules only
-            </a>
-          </li>
-        </ul>
+        {showDropdown && (
+          <ul className="dropdown-menu show" style={{ zIndex: 1000 }}>
+            <li>
+              <a className="dropdown-item" href="#" id="wd-publish-all"
+                 onClick={() => setShowDropdown(false)}>
+                <GreenCheckmark /> Publish all modules and items
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#" id="wd-publish-modules-only"
+                 onClick={() => setShowDropdown(false)}>
+                <GreenCheckmark /> Publish modules only
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#" id="wd-unpublish-all-modules-and-items"
+                 onClick={() => setShowDropdown(false)}>
+                Unpublish all modules and items
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#" id="wd-unpublish-modules-only"
+                 onClick={() => setShowDropdown(false)}>
+                Unpublish modules only
+              </a>
+            </li>
+          </ul>
+        )}
       </div>
 
       <button className="btn btn-lg btn-secondary me-1 float-end" id="wd-view-progress">

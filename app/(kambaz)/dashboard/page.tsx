@@ -72,9 +72,7 @@ export default function Dashboard() {
     fetchCourses();
   }, [currentUser, showAllCourses]);
 
-  const displayedCourses = showAllCourses
-    ? courses
-    : courses;
+  // server already filters by enrollment when showAllCourses is false
 
   return (
     <div id="wd-dashboard">
@@ -101,12 +99,12 @@ export default function Dashboard() {
         placeholder="Course Description" />
       <hr />
       <h2 id="wd-dashboard-published">
-        Published Courses ({displayedCourses.length})
+        Published Courses ({courses.length})
       </h2>
       <hr />
       <div id="wd-dashboard-courses">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {displayedCourses.map((c: any) => (
+          {courses.map((c: any) => (
             <div key={c._id} className="col" style={{ width: "300px" }}>
               <div className="card">
                 <Link href={isEnrolled(c._id) ? `/courses/${c._id}/home` : "#"}

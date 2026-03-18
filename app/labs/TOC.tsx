@@ -44,6 +44,18 @@ export default function TOC() {
         </Link>
       </li>
       <li className="nav-item">
+        <a href="https://github.com/hill-ol/kambaz-node-server-app"
+           className="nav-link" target="_blank" rel="noopener noreferrer">
+          Server GitHub
+        </a>
+      </li>
+      <li className="nav-item">
+        <a href="https://kambaz-node-server-app-9rgk.onrender.com"
+           className="nav-link" target="_blank" rel="noopener noreferrer">
+          Server (Render)
+        </a>
+      </li>
+      <li className="nav-item">
         <Link href="/"
               className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
           Kambaz

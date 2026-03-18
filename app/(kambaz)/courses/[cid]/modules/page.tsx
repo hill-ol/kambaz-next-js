@@ -38,7 +38,7 @@ export default function Modules() {
     dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
   };
 
-  useEffect(() => { fetchModules(); }, []);
+  useEffect(() => { fetchModules(); }, [cid]);
 
   return (
     <div>

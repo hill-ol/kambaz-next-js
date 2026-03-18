@@ -29,7 +29,7 @@ export default function Assignments() {
     }
   };
 
-  useEffect(() => { fetchAssignments(); }, []);
+  useEffect(() => { fetchAssignments(); }, [cid]);
 
   return (
     <div id="wd-assignments">

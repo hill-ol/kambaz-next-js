@@ -17,7 +17,7 @@ export default function Profile() {
       router.push("/account/signin");
       return;
     }
-    setProfile(currentUser);
+    setProfile({ ...currentUser });
   };
 
   const updateProfile = async () => {

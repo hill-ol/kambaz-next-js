@@ -38,6 +38,12 @@ export default function TOC() {
         </Link>
       </li>
       <li className="nav-item">
+        <Link href="/labs/lab5"
+              className={`nav-link ${pathname.startsWith('/labs/lab5') ? 'active' : ''}`}>
+          Lab 5
+        </Link>
+      </li>
+      <li className="nav-item">
         <Link href="/"
               className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
           Kambaz

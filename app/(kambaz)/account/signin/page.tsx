@@ -8,6 +8,7 @@ import * as db from "../../database";
 
 export default function Signin() {
   const [credentials, setCredentials] = useState<any>({});
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -17,14 +18,19 @@ export default function Signin() {
         u.username === credentials.username &&
         u.password === credentials.password
     );
-    if (!user) return;
+    if (!user) {
+      setError("Invalid username or password.");
+      return;
+    }
+    setError("");
     dispatch(setCurrentUser(user));
-    router.push("/dashboard");
+    router.push("/account/profile");
   };
 
   return (
     <div id="wd-signin-screen" className="p-3" style={{ maxWidth: "400px" }}>
       <h1>Sign in</h1>
+      {error && <div className="alert alert-danger py-2">{error}</div>}
       <input
         className="form-control mb-2"
         id="wd-username"
@@ -45,6 +51,10 @@ export default function Signin() {
         Sign in
       </button>
       <Link id="wd-signup-link" href="/account/signup">Sign up</Link>
+      <p className="text-muted mt-3" style={{ fontSize: "0.85rem" }}>
+        Test credentials: <strong>tony</strong> / <strong>123</strong> &nbsp;|&nbsp;
+        <strong>clark</strong> / <strong>123</strong>
+      </p>
     </div>
   );
 }

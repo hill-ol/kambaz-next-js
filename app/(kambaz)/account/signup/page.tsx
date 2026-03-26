@@ -32,7 +32,7 @@ export default function Signup() {
       password: credentials.password,
       role: "STUDENT",
     };
-    db.users.push(newUser);
+    (db.users as any[]).push(newUser);
     dispatch(setCurrentUser(newUser));
     router.push("/account/profile");
   };

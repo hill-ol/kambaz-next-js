@@ -40,7 +40,11 @@ export default function Dashboard() {
 
   const onAddNewCourse = async () => {
     const newCourse = await coursesClient.createCourse(course);
+    await coursesClient.enrollInCourse(newCourse._id);
     dispatch(setCourses([...courses, newCourse]));
+    dispatch(setEnrollments([...enrollments,
+      { _id: Date.now().toString(), user: currentUser._id, course: newCourse._id }
+    ]));
   };
 
   const onUpdateCourse = async () => {
@@ -72,8 +76,6 @@ export default function Dashboard() {
     if (!currentUser) return;
     fetchCourses();
   }, [currentUser, showAllCourses]);
-
-  // server already filters by enrollment when showAllCourses is false
 
   return (
     <div id="wd-dashboard">

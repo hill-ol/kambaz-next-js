@@ -6,6 +6,7 @@ import { enroll, unenroll } from "../enrollments/reducer";
 import { RootState } from "../store";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Dashboard() {
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
@@ -56,10 +57,18 @@ export default function Dashboard() {
         New Course
         <Button variant="primary" className="float-end ms-2"
                 id="wd-add-new-course-click"
-                onClick={() => dispatch(addNewCourse(course))}>Add</Button>
+                onClick={() => {
+                  const newId = uuidv4();
+                  dispatch(addNewCourse({ ...course, _id: newId }));
+                  dispatch(enroll({ userId: currentUser._id, courseId: newId }));
+                }}>
+          Add
+        </Button>
         <Button variant="warning" className="float-end"
                 id="wd-update-course-click"
-                onClick={() => dispatch(updateCourse(course))}>Update</Button>
+                onClick={() => dispatch(updateCourse(course))}>
+          Update
+        </Button>
       </h5>
       <br />
       <input className="form-control mb-2"

@@ -16,6 +16,8 @@ export default function Assignments() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const isFaculty = currentUser?.role === "FACULTY";
 
   const fetchAssignments = async () => {
     const data = await coursesClient.findAssignmentsForCourse(cid as string);
@@ -41,15 +43,17 @@ export default function Assignments() {
           <input className="form-control" placeholder="Search for Assignments"
             id="wd-search-assignment" />
         </div>
-        <div>
-          <button className="btn btn-lg btn-secondary me-1" id="wd-add-assignment-group">
-            <FaPlus className="me-1" /> Group
-          </button>
-          <button className="btn btn-lg btn-danger" id="wd-add-assignment"
-            onClick={() => router.push(`/courses/${cid}/assignments/new`)}>
-            <FaPlus className="me-1" /> Assignment
-          </button>
-        </div>
+        {isFaculty && (
+          <div>
+            <button className="btn btn-lg btn-secondary me-1" id="wd-add-assignment-group">
+              <FaPlus className="me-1" /> Group
+            </button>
+            <button className="btn btn-lg btn-danger" id="wd-add-assignment"
+              onClick={() => router.push(`/courses/${cid}/assignments/new`)}>
+              <FaPlus className="me-1" /> Assignment
+            </button>
+          </div>
+        )}
       </div>
 
       <ul className="list-group rounded-0" id="wd-assignment-list">
@@ -88,8 +92,10 @@ export default function Assignments() {
                         </div>
                         <div className="d-flex align-items-center gap-2">
                           <FaRegCheckCircle className="text-success fs-5" />
-                          <FaTrash className="text-danger" style={{ cursor: "pointer" }}
-                            onClick={(e) => { e.preventDefault(); handleDelete(assignment._id); }} />
+                          {isFaculty && (
+                            <FaTrash className="text-danger" style={{ cursor: "pointer" }}
+                              onClick={(e) => { e.preventDefault(); handleDelete(assignment._id); }} />
+                          )}
                           <IoEllipsisVertical className="fs-4" />
                         </div>
                       </div>

@@ -14,6 +14,7 @@ export default function Dashboard() {
   const { enrollments } = useSelector((state: RootState) => state.enrollmentsReducer);
   const dispatch = useDispatch();
   const [showAllCourses, setShowAllCourses] = useState(false);
+  const isFaculty = currentUser?.role === "FACULTY";
   const [course, setCourse] = useState<any>({
     _id: "0", name: "New Course", number: "New Number",
     startDate: "2023-09-10", endDate: "2023-12-15",
@@ -86,21 +87,25 @@ export default function Dashboard() {
         </Button>
       </h1>
       <hr />
-      <h5>
-        New Course
-        <Button variant="primary" className="float-end ms-2"
-          id="wd-add-new-course-click" onClick={onAddNewCourse}>Add</Button>
-        <Button variant="warning" className="float-end"
-          id="wd-update-course-click" onClick={onUpdateCourse}>Update</Button>
-      </h5>
-      <br />
-      <input className="form-control mb-2" value={course.name}
-        onChange={(e) => setCourse({ ...course, name: e.target.value })}
-        placeholder="Course Name" />
-      <textarea className="form-control mb-2" rows={3} value={course.description}
-        onChange={(e) => setCourse({ ...course, description: e.target.value })}
-        placeholder="Course Description" />
-      <hr />
+      {isFaculty && (
+        <>
+          <h5>
+            New Course
+            <Button variant="primary" className="float-end ms-2"
+              id="wd-add-new-course-click" onClick={onAddNewCourse}>Add</Button>
+            <Button variant="warning" className="float-end"
+              id="wd-update-course-click" onClick={onUpdateCourse}>Update</Button>
+          </h5>
+          <br />
+          <input className="form-control mb-2" value={course.name}
+            onChange={(e) => setCourse({ ...course, name: e.target.value })}
+            placeholder="Course Name" />
+          <textarea className="form-control mb-2" rows={3} value={course.description}
+            onChange={(e) => setCourse({ ...course, description: e.target.value })}
+            placeholder="Course Description" />
+          <hr />
+        </>
+      )}
       <h2 id="wd-dashboard-published">
         Published Courses ({courses.length})
       </h2>
@@ -134,15 +139,19 @@ export default function Dashboard() {
                       {isEnrolled(c._id) ? "Unenroll" : "Enroll"}
                     </Button>
                   )}
-                  <Button variant="warning" className="ms-auto"
-                    id="wd-edit-course-click"
-                    onClick={(e) => { e.preventDefault(); setCourse(c); }}>
-                    Edit
-                  </Button>
-                  <Button variant="danger" id="wd-delete-course-click"
-                    onClick={(e) => { e.preventDefault(); onDeleteCourse(c._id); }}>
-                    Delete
-                  </Button>
+                  {isFaculty && (
+                    <>
+                      <Button variant="warning" className="ms-auto"
+                        id="wd-edit-course-click"
+                        onClick={(e) => { e.preventDefault(); setCourse(c); }}>
+                        Edit
+                      </Button>
+                      <Button variant="danger" id="wd-delete-course-click"
+                        onClick={(e) => { e.preventDefault(); onDeleteCourse(c._id); }}>
+                        Delete
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

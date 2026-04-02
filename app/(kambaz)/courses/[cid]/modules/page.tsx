@@ -14,6 +14,8 @@ export default function Modules() {
   const { cid } = useParams();
   const [moduleName, setModuleName] = useState("New Module");
   const { modules } = useSelector((state: RootState) => state.modulesReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const isFaculty = currentUser?.role === "FACULTY";
   const dispatch = useDispatch();
 
   const fetchModules = async () => {
@@ -42,20 +44,24 @@ export default function Modules() {
 
   return (
     <div>
-      <ModulesControls
-        moduleName={moduleName}
-        setModuleName={setModuleName}
-        addModule={onCreateModuleForCourse} />
+      {isFaculty && (
+        <ModulesControls
+          moduleName={moduleName}
+          setModuleName={setModuleName}
+          addModule={onCreateModuleForCourse} />
+      )}
       <br /><br /><br /><br />
       <ListGroup id="wd-modules" className="rounded-0">
         {modules.map((module: any) => (
           <ListGroup.Item key={module._id}
             className="wd-module p-0 mb-5 fs-5 border-gray">
             <div className="wd-title p-3 ps-2 bg-secondary">
-              <ModuleControlButtons
-                moduleId={module._id}
-                deleteModule={() => onRemoveModule(module._id)}
-                editModule={() => dispatch(editModule(module._id))} />
+              {isFaculty && (
+                <ModuleControlButtons
+                  moduleId={module._id}
+                  deleteModule={() => onRemoveModule(module._id)}
+                  editModule={() => dispatch(editModule(module._id))} />
+              )}
               {!module.editing
                 ? module.name
                 : <FormControl className="w-50 d-inline-block"

@@ -4,12 +4,14 @@ import { useParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../store";
 import { addAssignment, updateAssignment } from "../reducer";
+import * as coursesClient from "../../../client";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
   const router = useRouter();
   const dispatch = useDispatch();
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
 
   const existing = assignments.find((a: any) => a._id === aid);
   const [assignment, setAssignment] = useState<any>({
@@ -26,14 +28,20 @@ export default function AssignmentEditor() {
     if (existing) setAssignment(existing);
   }, [aid]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (existing) {
+      await coursesClient.updateAssignment(assignment);
       dispatch(updateAssignment(assignment));
     } else {
-      dispatch(addAssignment({ ...assignment, course: cid }));
+      const newAssignment = await coursesClient.createAssignmentForCourse(cid as string, { ...assignment, course: cid });
+      dispatch(addAssignment(newAssignment));
     }
     router.push(`/courses/${cid}/assignments`);
   };
+
+  if (currentUser?.role !== "FACULTY") {
+    return <div className="p-3 alert alert-danger">Only faculty can edit assignments.</div>;
+  }
 
   return (
     <div id="wd-assignments-editor" className="p-3">
@@ -43,13 +51,11 @@ export default function AssignmentEditor() {
                value={assignment.title}
                onChange={(e) => setAssignment({ ...assignment, title: e.target.value })} />
       </div>
-
       <div className="mb-3">
         <textarea className="form-control" id="wd-description" rows={5}
                   value={assignment.description}
                   onChange={(e) => setAssignment({ ...assignment, description: e.target.value })} />
       </div>
-
       <div className="row mb-3">
         <label htmlFor="wd-points" className="col-sm-3 col-form-label">Points</label>
         <div className="col-sm-9">
@@ -58,7 +64,6 @@ export default function AssignmentEditor() {
                  onChange={(e) => setAssignment({ ...assignment, points: parseInt(e.target.value) })} />
         </div>
       </div>
-
       <div className="row mb-3">
         <label htmlFor="wd-group" className="col-sm-3 col-form-label">Assignment Group</label>
         <div className="col-sm-9">
@@ -70,7 +75,6 @@ export default function AssignmentEditor() {
           </select>
         </div>
       </div>
-
       <div className="row mb-3">
         <label htmlFor="wd-display-grade-as" className="col-sm-3 col-form-label">Display Grade as</label>
         <div className="col-sm-9">
@@ -81,7 +85,6 @@ export default function AssignmentEditor() {
           </select>
         </div>
       </div>
-
       <div className="row mb-3">
         <label htmlFor="wd-submission-type" className="col-sm-3 col-form-label">Submission Type</label>
         <div className="col-sm-9">
@@ -115,7 +118,6 @@ export default function AssignmentEditor() {
           </div>
         </div>
       </div>
-
       <div className="row mb-3">
         <label className="col-sm-3 col-form-label">Assign</label>
         <div className="col-sm-9">
@@ -147,15 +149,13 @@ export default function AssignmentEditor() {
           </div>
         </div>
       </div>
-
       <hr />
       <div className="d-flex justify-content-end">
         <button className="btn btn-lg btn-secondary me-2" id="wd-cancel"
                 onClick={() => router.push(`/courses/${cid}/assignments`)}>
           Cancel
         </button>
-        <button className="btn btn-lg btn-danger" id="wd-save"
-                onClick={handleSave}>
+        <button className="btn btn-lg btn-danger" id="wd-save" onClick={handleSave}>
           Save
         </button>
       </div>

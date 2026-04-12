@@ -31,12 +31,12 @@ export default function Modules() {
   };
 
   const onUpdateModule = async (module: any) => {
-    await coursesClient.updateModule(module);
+    await coursesClient.updateModule(cid as string, module);
     dispatch(setModules(modules.map((m: any) => m._id === module._id ? module : m)));
   };
 
   const onRemoveModule = async (moduleId: string) => {
-    await coursesClient.deleteModule(moduleId);
+    await coursesClient.deleteModule(cid as string, moduleId);
     dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
   };
 

@@ -10,9 +10,7 @@ export default function CourseNavigation() {
   return (
     <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
       {links.map((link) => {
-        const path = link === "People" 
-          ? `/courses/${cid}/people/table` 
-          : `/courses/${cid}/${link.toLowerCase()}`;
+        const path = `/courses/${cid}/${link.toLowerCase()}`;
         const isActive = pathname.includes(link.toLowerCase());
         return (
           <Link
